@@ -59,6 +59,9 @@
                   type='text'
                   ng-model='NotesCtrl.newNote.title'
                 />
+                <div class="ui pointing red basic label" ng-if='NotesCtrl.errors.titleCheck.checkFlag'>
+                  Your note needs a title.
+                </div>
               </div>
               <div class='field'>
                 <label>Notes:</label>

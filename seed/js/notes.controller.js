@@ -14,6 +14,16 @@ function NotesController () {
         'addNoteView': false
     }
 
+    ctrl.errors = {
+        titleCheck: {
+            checkFunc: function () {
+                return ctrl.newNote.title
+            },
+            checkFlag: false,
+            checkMessage: 'Note must have a title.'
+        }
+    }
+
     ctrl.toggleAddNote = function () {
         ctrl.display.addNoteView = !ctrl.display.addNoteView
     }
@@ -23,12 +33,17 @@ function NotesController () {
     }
 
     ctrl.addNote = function () {
-        ctrl.display.addNoteView = false
-        ctrl.list.unshift(ctrl.newNote)
-        ctrl.selectNote(ctrl.list[0], 0)
-        ctrl.newNote = {
-            title: "",
-            content: ""
+        if(ctrl.errors.titleCheck.checkFunc()){
+            ctrl.display.addNoteView = false
+            ctrl.list.unshift(ctrl.newNote)
+            ctrl.selectNote(ctrl.list[0], 0)
+            ctrl.errors.titleCheck.checkFlag = false
+            ctrl.newNote = {
+                title: "",
+                content: ""
+            }
+        } else {
+            ctrl.errors.titleCheck.checkFlag = true
         }
     }
 
